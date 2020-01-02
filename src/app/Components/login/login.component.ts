@@ -11,10 +11,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // tslint:disable-next-line:only-arrow-functions
-    document.querySelector('.img__btn').addEventListener('click', function() {
-      document.querySelector('.cont').classList.toggle('s--signup');
-    });
+
   }
 
 }
