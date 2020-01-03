@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+//@import '~ngx-toastr/toastr-bs4-alert';
+
 body {
-  background: #76b852; /* fallback for old browsers */
+  background: #0d6db8; /* fallback for old browsers */
   background: -webkit-linear-gradient(right, #76b852, #8DC26F);
   background: -moz-linear-gradient(right, #76b852, #8DC26F);
   background: -o-linear-gradient(right, #76b852, #8DC26F);
