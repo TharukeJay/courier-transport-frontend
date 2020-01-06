@@ -39,13 +39,13 @@ export class SignupComponent implements OnInit {
       return true;
     }
 
-    if (email.trim() === '') {
-      this.toastr.error('Please fill the email');
+    if (userName.trim() === '') {
+      this.toastr.error('Please fill Username');
       return true;
     }
 
-    if (userName.trim() === '') {
-      this.toastr.error('Please fill Username');
+    if (email.trim() === '') {
+      this.toastr.error('Please fill the email');
       return true;
     }
 
@@ -68,6 +68,11 @@ export class SignupComponent implements OnInit {
       this.toastr.error('Please select the User Role');
       return true;
     }
+  }
+
+  selectUserRole(userRole: string) {
+    this.userRole = userRole;
+    alert(userRole);
   }
 
 }

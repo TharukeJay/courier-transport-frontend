@@ -36,4 +36,7 @@ import { ToastrModule } from 'ngx-toastr';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  static resourceBaseURL = 'http://localhost:8080/';
+}

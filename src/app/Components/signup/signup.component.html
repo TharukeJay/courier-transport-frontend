@@ -1,21 +1,20 @@
 <div class="login-page">
   <div class="form">
     <form class="login-form">
-      <input type="text" placeholder="First name"/>
-      <input type="text" placeholder="Last name"/>
-      <input type="text" placeholder="Username"/>
-      <input type="text" placeholder="email address"/>
-      <select>
+      <h3>Sign Up</h3>
+      <input #fName type="text" placeholder="First name"/>
+      <input #lName type="text" placeholder="Last name"/>
+      <input #userName type="text" placeholder="Username"/>
+      <input #email type="text" placeholder="email address"/>
+      <select #userRole (change)="selectUserRole(userRole.value)">
         <option>Select User role</option>
         <option>Admin</option>
         <option>User</option>
       </select>
-      <input type="password" placeholder="password"/>
-      <input type="password" placeholder="Re-password"/>
-      <button>create</button>
+      <input #pswrd type="password" placeholder="password"/>
+      <input #repswrd type="password" placeholder="Re-password"/>
+      <button type="button" (click)="checkInputFieldEmpty(email.value,fName.value,lName.value,userName.value,userRole.value,pswrd.value,repswrd.value)">create</button>
       <p class="message">Already registered? <a routerLink="/login">Sign In</a></p>
     </form>
   </div>
 </div>
-
-<!--hkgbufdhkughfdukg-->
