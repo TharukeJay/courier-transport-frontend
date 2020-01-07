@@ -17,32 +17,26 @@
       <div class="md-form my-0">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-                        <span *ngIf="loggedOrNot"
-                              [ngClass]="'visibleStyle ' +'button alt btn-margin nav-link' "
-                        >
-                         Logged in as {{loggedUser}}
+                        <span class="button alt btn-margin nav-link">
+                         Logged in as
                         </span>
           </li>
-          <li class="nav-item">
-            <a *ngIf="loggedOrNot"
-               [ngClass]="'visibleStyle ' +'button alt btn-margin nav-link' "
-               [routerLink]="routerLinkNew"
-            >
+          <li class="button alt btn-margin nav-link">
+            <a routerLink="/dashboard">
               My Dashboard
             </a>
           </li>
 
-          <li *ngIf="isAdmin" class="nav-item">
+          <li  class="nav-item">
             <a class="nav-link" (click)="setMenu('admin')" routerLink="/users/admins">Admin</a>
           </li>
           <li class="nav-item">
             <a class="button alt btn-margin nav-link logInOut-btn"
-               (click)="(logInOutUser())"
-            >{{logInOut}}
+            >LogInOut
             </a>
           </li>
-          <li *ngIf="!loggedOrNot" class="nav-item">
-            <a class="nav-link" routerLink="/signup">Register</a>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/signup">Login</a>
           </li>
         </ul>
       </div>
