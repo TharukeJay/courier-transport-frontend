@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ToastrService} from "ngx-toastr";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {AppModule} from "../../app.module";
+import {UserObj} from "../../Models/UserObj";
 
 @Component({
   selector: 'app-signup',
@@ -21,13 +23,14 @@ export class SignupComponent implements OnInit {
   uniqueUsername: boolean;
   uniqueEmail: boolean;
 
-  constructor(private toastr: ToastrService,private http: HttpClient, private router: Router) { }
+  constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) {
+  }
 
   ngOnInit() {
   }
 
-  checkInputFieldEmpty(email: string, fNmae: string, lName: string, userName: string, userRole: string, password: string, repswrd: string) {
-    const pattern =  /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+  checkInputFieldEmpty(fNmae: string, lName: string, email: string,  userName: string, password: string, repswrd: string) {
+    const pattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
 
     if (fNmae.trim() === '') {
       this.toastr.error('Please fill First Name');
@@ -73,6 +76,23 @@ export class SignupComponent implements OnInit {
   selectUserRole(userRole: string) {
     this.userRole = userRole;
     alert(userRole);
+  }
+
+  registerUser(fName: string, lName: string, email: string, userName: string, paswrd: string, repswrd: string) {
+
+    const checkInputFieldEmpty = this.checkInputFieldEmpty(fName,lName,email,userName,paswrd,repswrd);
+
+    if (checkInputFieldEmpty) {
+      return;
+    }
+
+    const user = new UserObj(fName,lName,email,userName,paswrd,this.userRole, 'PENDING');
+
+    this.http.post<UserObj>(`${AppModule.resourceBaseURL}` + 'api/signup', user, {observe: 'response'}).subscribe(
+      res => {
+
+      }
+    )
   }
 
 }

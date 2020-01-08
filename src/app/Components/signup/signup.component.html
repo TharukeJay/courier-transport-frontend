@@ -13,7 +13,7 @@
       </select>
       <input #pswrd type="password" placeholder="password"/>
       <input #repswrd type="password" placeholder="Re-password"/>
-      <button type="button" (click)="checkInputFieldEmpty(email.value,fName.value,lName.value,userName.value,userRole.value,pswrd.value,repswrd.value)">create</button>
+      <button type="button" (click)="registerUser(email.value,fName.value,lName.value,userName.value,pswrd.value,repswrd.value)">create</button>
       <p class="message">Already registered? <a routerLink="/login">Sign In</a></p>
     </form>
   </div>
