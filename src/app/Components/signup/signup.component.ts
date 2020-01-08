@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  checkInputFieldEmpty(fNmae: string, lName: string, email: string,  userName: string, password: string, repswrd: string) {
+  checkInputFieldEmpty(fNmae: string, lName: string, email: string, userName: string, password: string, repswrd: string) {
     const pattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
 
     if (fNmae.trim() === '') {
@@ -80,19 +80,36 @@ export class SignupComponent implements OnInit {
 
   registerUser(fName: string, lName: string, email: string, userName: string, paswrd: string, repswrd: string) {
 
-    const checkInputFieldEmpty = this.checkInputFieldEmpty(fName,lName,email,userName,paswrd,repswrd);
+    const checkInputFieldEmpty = this.checkInputFieldEmpty(fName, lName, email, userName, paswrd, repswrd);
 
     if (checkInputFieldEmpty) {
       return;
     }
 
-    const user = new UserObj(fName,lName,email,userName,paswrd,this.userRole, 'PENDING');
-
-    this.http.post<UserObj>(`${AppModule.resourceBaseURL}` + 'api/signup', user, {observe: 'response'}).subscribe(
+    this.http.get<string>(`${AppModule.resourceBaseURL}` + 'api/user/getExistEmail' + email, {observe: 'response'}).subscribe(
       res => {
 
-      }
-    )
+        if (res.body.toString() === 'true') {
+          this.toastr.error('Email you entered already exist', 'Email error!');
+        } else if (this.uniqueUsername) {
+          this.toastr.error('Username already exist', 'Username error!');
+        } else {
+          const user = new UserObj(fName, lName, email, userName, paswrd, this.userRole, 'PENDING');
+
+          this.http.post<UserObj>(`${AppModule.resourceBaseURL}` + 'api/signup', user, {observe: 'response'}).subscribe(
+            res => {
+
+              if (res.ok === true) {
+                this.toastr.success('You have successfully registered to RML courier transport', 'Registered!');
+                this.router.navigate(['/login']);
+              }else {
+                this.toastr.error('Error occurred while registering the user', 'Registration Error!');
+                this.router.navigate(['/signup']);
+              }
+            }
+          );
+        }
+      });
   }
 
 }
