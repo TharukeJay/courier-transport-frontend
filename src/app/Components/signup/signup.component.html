@@ -2,18 +2,20 @@
   <div class="form">
     <form class="login-form">
       <h3>Sign Up</h3>
-      <input #fName type="text" placeholder="First name"/>
-      <input #lName type="text" placeholder="Last name"/>
-      <input #userName type="text" placeholder="Username"/>
-      <input #email type="text" placeholder="email address"/>
+      <input #fName type="text" placeholder="First name" value="{{fname1}}" >
+      <input #lName type="text" placeholder="Last name" value="{{lname1}}" >
+      <input #userName type="text" placeholder="Username" value="{{username1}}" (focusout)=validateUniqueUsername(userName.value) >
+      <div *ngIf="uniqueUsername" class="col-md-offset-2 error-message-red">Username already exists</div>
+      <input #email type="text" placeholder="email address" value="{{email1}}" (keyup)=validateUniqueEmail(email.value) >
+      <div *ngIf="uniqueEmail" class="col-md-offset-2 error-message-red">Email already exists</div>
       <select #userRole (change)="selectUserRole(userRole.value)">
         <option>Select User role</option>
-        <option>Admin</option>
+        <option>ADMIN</option>
         <option>User</option>
       </select>
-      <input #pswrd type="password" placeholder="password"/>
-      <input #repswrd type="password" placeholder="Re-password"/>
-      <button type="button" (click)="registerUser(email.value,fName.value,lName.value,userName.value,pswrd.value,repswrd.value)">create</button>
+      <input #pswrd type="password" placeholder="password" value="{{paswd1}}" >
+      <input #repswrd type="password" placeholder="Re-password" value="{{repswrd1}}" >
+      <button type="button" (click)="registerUser(fName.value,lName.value,email.value,userName.value,pswrd.value,repswrd.value)">create</button>
       <p class="message">Already registered? <a routerLink="/login">Sign In</a></p>
     </form>
   </div>

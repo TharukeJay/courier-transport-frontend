@@ -18,7 +18,6 @@ export class SignupComponent implements OnInit {
   username1: string = null;
   paswd1: string = null;
   repswrd1: string = null;
-  organization1: string = null;
   userRole: string;
   uniqueUsername: boolean;
   uniqueEmail: boolean;
@@ -27,6 +26,8 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.clearFields();
+
   }
 
   checkInputFieldEmpty(fNmae: string, lName: string, email: string, userName: string, password: string, repswrd: string) {
@@ -62,10 +63,10 @@ export class SignupComponent implements OnInit {
       return true;
     }
 
-    if (email.match(pattern)) {
-      this.toastr.error('Please enter a valid email address');
-      return true;
-    }
+    // if (email.match(pattern)) {
+    //   this.toastr.error('Please enter a valid email address');
+    //   return true;
+    // }
 
     if (this.userRole === undefined) {
       this.toastr.error('Please select the User Role');
@@ -86,13 +87,13 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    this.http.get<string>(`${AppModule.resourceBaseURL}` + 'api/user/getExistEmail' + email, {observe: 'response'}).subscribe(
+    this.http.get<string>(`${AppModule.resourceBaseURL}` + 'api/user/getExistEmail/' + email, {observe: 'response'}).subscribe(
       res => {
 
         if (res.body.toString() === 'true') {
           this.toastr.error('Email you entered already exist', 'Email error!');
-        } else if (this.uniqueUsername) {
-          this.toastr.error('Username already exist', 'Username error!');
+        } else if (this.uniqueUsername || this.uniqueEmail) {
+          this.toastr.error('Username or Email already exist', 'Username error!');
         } else {
           const user = new UserObj(fName, lName, email, userName, paswrd, this.userRole, 'PENDING');
 
@@ -110,6 +111,34 @@ export class SignupComponent implements OnInit {
           );
         }
       });
+  }
+
+  validateUniqueUsername(userName) {
+    if (userName !== null) {
+      this.http.get<any>(`${AppModule.resourceBaseURL}` + 'api/unique/' + userName, {
+        observe: 'response',
+      }).subscribe( res => {
+        this.uniqueUsername = res.body.status;
+      });
+    }
+  }
+
+  validateUniqueEmail(email) {
+    if (email !== null) {
+      this.http.get<any>(`${AppModule.resourceBaseURL}` + 'api/unique/email' + email, {
+        observe: 'response'
+      }).subscribe( res => {
+        this.uniqueEmail = res.body.status;
+      });
+    }
+  }
+
+  clearFields() {
+    this.email1 = null;
+    this.fname1 = null;
+    this.lname1 = null;
+    this.paswd1 = null;
+    this.repswrd1 = null;
   }
 
 }

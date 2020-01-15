@@ -26,7 +26,4 @@ export class LoginComponent implements OnInit {
 
   }
 
-  showSuccess() {
-    this.toastr.success('Hello world!', 'Toastr fun!');
-  }
 }
